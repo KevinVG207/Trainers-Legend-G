@@ -84,6 +84,19 @@ namespace
 
 	Il2CppString* (*environment_get_stacktrace)();
 
+	// Set Localize.
+	void* localize_jp_set_orig = nullptr;
+	void localize_jp_set_hook(void* region, String id, String value)
+	{
+		// Print id to console
+		printf("SET: %ls\n", id->start_char);
+
+		// Print stacktrace to console
+		printf("%ls\n\n", environment_get_stacktrace()->start_char);
+
+		return reinterpret_cast<decltype(localize_jp_set_hook)*>(localize_jp_set_orig)(region, id, value);
+	}
+
 	void* localize_jp_get_orig = nullptr;
 	Il2CppString* localize_jp_get_hook(int id)
 	{
@@ -91,7 +104,7 @@ namespace
 		printf("localize_jp_get_hook: %d\n", id);
 
 		// Print stacktrace to console
-		printf("%ls\n\n", environment_get_stacktrace()->start_char);
+		// printf("%ls\n\n", environment_get_stacktrace()->start_char);
 
 		auto orig_result = reinterpret_cast<decltype(localize_jp_get_hook)*>(localize_jp_get_orig)(id);
 		auto result = local::get_localized_string(id);
@@ -3834,6 +3847,11 @@ namespace
 		const auto localize_jp_class = il2cpp_symbols::find_nested_class_from_name(localize_class, "JP");
 		auto localize_jp_get_addr = il2cpp_class_get_method_from_name(localize_jp_class, "Get", 1)->methodPointer;
 
+		auto localize_jp_set_addr = il2cpp_symbols::get_method_pointer(
+			"umamusume.dll", "Gallop",
+			"Localize", "JP", "Set", 2
+		);
+
 		environment_get_stacktrace = reinterpret_cast<decltype(environment_get_stacktrace)>(il2cpp_symbols::get_method_pointer("mscorlib.dll", "System", "Environment", "get_StackTrace", 0));
 
 		auto query_setup_addr = il2cpp_symbols::get_method_pointer(
@@ -4550,6 +4568,7 @@ namespace
 		ADD_HOOK(populate_with_errors, "UnityEngine.TextGenerator::PopulateWithErrors at %p\n");
 
 		// Looks like they store all localized texts that used by code in a dict
+		ADD_HOOK(localize_jp_set, "Gallop.Localize.JP.Set(Region, Id, Text) at %p\n"
 		ADD_HOOK(localize_jp_get, "Gallop.Localize.JP.Get(TextId) at %p\n");
 		ADD_HOOK(on_exit, "Gallop.GameSystem.onApplicationQuit at %p\n");
 		ADD_HOOK(query_setup, "Query::_Setup at %p\n");
