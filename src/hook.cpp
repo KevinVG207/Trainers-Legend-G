@@ -91,8 +91,8 @@ namespace
 		// // Get the object to which the original function belongs
 		// auto klass = il2cpp_symbols::get_class_from_method(reinterpret_cast<MethodInfo*>(localize_jp_set_orig));
 
-		// Print id to console
-		printf("SET: %ls\n", id->start_char);
+		// // Print id to console
+		// printf("SET: %ls\n", id->start_char);
 
 		// Print stacktrace to console
 		printf("%ls\n\n", environment_get_stacktrace()->start_char);
