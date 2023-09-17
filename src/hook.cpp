@@ -4572,7 +4572,7 @@ namespace
 		ADD_HOOK(populate_with_errors, "UnityEngine.TextGenerator::PopulateWithErrors at %p\n");
 
 		// Looks like they store all localized texts that used by code in a dict
-		ADD_HOOK(localize_jp_set, "Gallop.Localize.JP.Set(Region, Id, Text) at %p\n"
+		ADD_HOOK(localize_jp_set, "Gallop.Localize.JP.Set(Region, Id, Text) at %p\n");
 		ADD_HOOK(localize_jp_get, "Gallop.Localize.JP.Get(TextId) at %p\n");
 		ADD_HOOK(on_exit, "Gallop.GameSystem.onApplicationQuit at %p\n");
 		ADD_HOOK(query_setup, "Query::_Setup at %p\n");
