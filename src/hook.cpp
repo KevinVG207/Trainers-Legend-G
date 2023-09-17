@@ -86,8 +86,11 @@ namespace
 
 	// Set Localize.
 	void* localize_jp_set_orig = nullptr;
-	void localize_jp_set_hook(void* region, String id, String value)
+	void localize_jp_set_hook(void* region, String* id, String* value)
 	{
+		// // Get the object to which the original function belongs
+		// auto klass = il2cpp_symbols::get_class_from_method(reinterpret_cast<MethodInfo*>(localize_jp_set_orig));
+
 		// Print id to console
 		printf("SET: %ls\n", id->start_char);
 
@@ -3847,10 +3850,11 @@ namespace
 		const auto localize_jp_class = il2cpp_symbols::find_nested_class_from_name(localize_class, "JP");
 		auto localize_jp_get_addr = il2cpp_class_get_method_from_name(localize_jp_class, "Get", 1)->methodPointer;
 
-		auto localize_jp_set_addr = il2cpp_symbols::get_method_pointer(
-			"umamusume.dll", "Gallop",
-			"Localize", "JP", "Set", 2
-		);
+		auto localize_jp_set_addr = il2cpp_class_get_method_from_name(localize_jp_class, "Set", 3)->methodPointer;
+		// auto localize_jp_set_addr = il2cpp_symbols::get_method_pointer(
+		// 	"umamusume.dll", "Gallop",
+		// 	"Localize", "JP", "Set", 2
+		// );
 
 		environment_get_stacktrace = reinterpret_cast<decltype(environment_get_stacktrace)>(il2cpp_symbols::get_method_pointer("mscorlib.dll", "System", "Environment", "get_StackTrace", 0));
 
