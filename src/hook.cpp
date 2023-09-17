@@ -86,7 +86,7 @@ namespace
 
 	// Set Localize.
 	void* localize_jp_set_orig = nullptr;
-	void localize_jp_set_hook(void* region, String* id, String* value)
+	void localize_jp_set_hook(void* region, Il2CppString* id, Il2CppString* value)
 	{
 		// // Get the object to which the original function belongs
 		// auto klass = il2cpp_symbols::get_class_from_method(reinterpret_cast<MethodInfo*>(localize_jp_set_orig));
