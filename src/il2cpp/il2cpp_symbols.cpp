@@ -40,6 +40,8 @@ namespace il2cpp_symbols
 
 	void init(HMODULE game_module)
 	{
+		// Print game_module
+		printf("game_module: %p\n", game_module);
 		RESOLVE_IMPORT(il2cpp_string_new_utf16);
 		RESOLVE_IMPORT(il2cpp_string_new);
 		RESOLVE_IMPORT(il2cpp_domain_get);
