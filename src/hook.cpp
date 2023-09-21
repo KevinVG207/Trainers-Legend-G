@@ -82,7 +82,7 @@ namespace
 			);
 	}
 
-	Il2CppString* (*environment_get_stacktrace)();
+	// Il2CppString* (*environment_get_stacktrace)();
 
 	void* localize_jp_get_orig = nullptr;
 	Il2CppString* localize_jp_get_hook(int id)
