@@ -91,10 +91,7 @@ namespace
 		printf("localize_jp_get_hook: %d\n", id);
 
 		// Code to print stacktrace to find out where the id comes from
-
-		auto stacktrace = environment_get_stacktrace();
-		auto stacktraceStr = il2cpp_string_new(stacktrace->start_char);
-		printf("Stacktrace: %s\n", stacktraceStr->start_char);
+		printf("%ls\n\n", environment_get_stacktrace()->start_char);
 
 		auto orig_result = reinterpret_cast<decltype(localize_jp_get_hook)*>(localize_jp_get_orig)(id);
 		auto result = local::get_localized_string(id);
