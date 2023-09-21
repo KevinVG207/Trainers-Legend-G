@@ -32,6 +32,8 @@ namespace
 	void set_start_resolution();
 
 	bool mh_inited = false;
+	
+	Il2CppString* (*environment_get_stacktrace)();
 
 	void dump_bytes(void* pos, std::size_t dumpSize = 0x20)
 	{
@@ -77,12 +79,13 @@ namespace
 	void* populate_with_errors_orig = nullptr;
 	bool populate_with_errors_hook(void* _this, Il2CppString* str, TextGenerationSettings_t* settings, void* context)
 	{
+		printf("populate_with_errors_hook: %ls\n", str->start_char);
+		printf("%ls\n\n", environment_get_stacktrace()->start_char);
+
 		return reinterpret_cast<decltype(populate_with_errors_hook)*>(populate_with_errors_orig) (
 			_this, local::get_localized_string(str), settings, context
 			);
 	}
-
-	// Il2CppString* (*environment_get_stacktrace)();
 
 	void* localize_jp_get_orig = nullptr;
 	Il2CppString* localize_jp_get_hook(int id)
