@@ -146,6 +146,8 @@ namespace local
 		return _ret;
 	}
 
+	environment_get_stacktrace = reinterpret_cast<decltype(environment_get_stacktrace)>(il2cpp_symbols::get_method_pointer("mscorlib.dll", "System", "Environment", "get_StackTrace", 0));
+
 	Il2CppString* get_localized_string(Il2CppString* str)
 	{
 		if (closeTrans.all || closeTrans.hashTextData) {
@@ -187,6 +189,13 @@ namespace local
 		else if (t_with_lp != NULL || t_without_lp != NULL) {
 			return t_with_lp != NULL ? t_with_lp : t_without_lp;
 		}
+
+
+		printf("hash: %zu\n", hash);
+		printf("t_without_lp: %p\n", t_without_lp);
+		auto stacktrace = environment_get_stacktrace();
+		auto stacktraceStr = il2cpp_string_new(stacktrace->start_char);
+		printf("Stacktrace: %s\n", stacktraceStr->start_char);
 
 
 		if (g_enable_logger && !std::any_of(str_list.begin(), str_list.end(), [hash](size_t hash1) { return hash1 == hash; }))
